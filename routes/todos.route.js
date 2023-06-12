@@ -11,16 +11,12 @@ const {
 // Middleware to authenticate the user
 router.use(authMiddleware);
 
-// Get all todos
-router.get('/', getTodos);
+router.route('/')
+  .get(getTodos)
+  .post(createTodo);
 
-// Create a new todo
-router.post('/', createTodo);
-
-// Update a todo
-router.put('/:id', updateTodo);
-
-// Delete a todo
-router.delete('/:id', deleteTodo);
+router.route('/:id')
+  .put(updateTodo)
+  .delete(deleteTodo);
 
 module.exports = router;
