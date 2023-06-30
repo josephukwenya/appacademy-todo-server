@@ -1,24 +1,22 @@
-const sequelize = require('../db');
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../config/db");
 
-const Todo = sequelize.define('Todo', {
+const Todo = db.define("Todo", {
   id: {
-    type: DataTypes.UUID,
+    type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  task: {
+    type: Sequelize.STRING,
   },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  dueDate: {
-    type: DataTypes.DATE,
-    allowNull: false,
+  complete: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 });
 
+Todo.sync().then(() => {
+  // console.log('table created');
+});
 module.exports = Todo;

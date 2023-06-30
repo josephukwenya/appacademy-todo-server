@@ -1,30 +1,25 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+//this middleware will on continue on if the token is inside the local storage
 
-  if (!authHeader) {
-    return res.status(401).json({ error: 'No token provided' });
+module.exports = function (req, res, next) {
+  // Get token from header
+  const token = req.header("Authorization");
+  console.log({ token });
+  // Check if not token
+  if (!token) {
+    return res.status(403).json({ msg: "authorization denied" });
   }
 
-  const parts = authHeader.split(' ');
-
-  if (parts.length !== 2) {
-    return res.status(401).json({ error: 'Token error' });
+  // Verify token
+  try {
+    //it is going to give use the user id (user:{id: user.id})
+    const verify = jwt.verify(token, process.env.JWT_SECRET);
+    console.log({ verify });
+    req.user = verify.user;
+    next();
+  } catch (err) {
+    res.status(401).json({ msg: "Token is not valid" });
   }
-
-  const [scheme, token] = parts;
-
-  if (!/^Bearer$/i.test(scheme)) {
-    return res.status(401).json({ error: 'Token malformatted' });
-  }
-
-  jwt.verify(token, 'your-secret-key', (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ error: 'Token invalid' });
-    }
-
-    req.userId = decoded.userId;
-    return next();
-  });
 };
