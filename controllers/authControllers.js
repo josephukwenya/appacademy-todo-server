@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     // Find the user by email
-    const user = await User.findOne({ where: { email: email } });
+    const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
@@ -44,8 +44,16 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
+    const user_id = user.id;
+    console.log(user_id);
+    const payload = {
+      user: {
+        id: user_id,
+      },
+    };
+
     // Generate and send the JWT token
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES,
     });
     user.password = undefined;

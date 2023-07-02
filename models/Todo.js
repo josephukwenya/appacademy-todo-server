@@ -7,8 +7,14 @@ const Todo = db.define("Todo", {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
+  userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    foreignKey: true,
+  },
   task: {
     type: Sequelize.STRING,
+    allowNull: false,
   },
   complete: {
     type: DataTypes.BOOLEAN,

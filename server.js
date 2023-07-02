@@ -1,6 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 
@@ -27,7 +27,7 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
-// app.use(helmet());
+app.use(helmet());
 
 app.use(express.urlencoded({ extended: false }));
 
