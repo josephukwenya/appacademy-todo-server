@@ -4,12 +4,10 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 
-// Load routes files
 const authRouter = require("./routes/authRoutes");
 const todoRouter = require("./routes/todoRoutes");
 
@@ -20,18 +18,12 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(express.json());
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
 app.use(helmet());
-
+app.use(express.json());
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.json("App Academy Todo Web App!");
 });
 
