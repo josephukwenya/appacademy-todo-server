@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (_req, res) => {
+app.get("/", (req, res) => {
   res.json("App Academy Todo Web App!");
 });
 
