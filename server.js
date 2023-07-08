@@ -22,7 +22,7 @@ app.use(cors({ origin: "https://appacademy-todoapp.vercel.app/" }));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.json("App Academy Todo Web App!");
+  res.json("App Academy Todo Web App!!!");
 });
 
 app.use("/api/v1/users", authRouter);

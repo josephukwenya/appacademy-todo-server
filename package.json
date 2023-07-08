@@ -4,7 +4,8 @@
   "description": "Technical screen - app academy",
   "main": "index.js",
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "keywords": [],
   "author": "Joseph Ukwenya",
