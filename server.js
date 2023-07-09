@@ -1,5 +1,4 @@
 const express = require("express");
-const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
@@ -16,13 +15,12 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(helmet());
 app.use(express.json());
 app.use(cors({ origin: "https://appacademy-todoapp.vercel.app/" }));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.json("App Academy Todo Web App!!!");
+  res.json("App Academy Todo Web App!!!!");
 });
 
 app.use("/api/v1/users", authRouter);
