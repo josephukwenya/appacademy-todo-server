@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({ origin: 'https://appacademy-todoapp.vercel.app/' }));
+app.use(cors({ origin: 'https://appacademy-todoapp.vercel.app' }));
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
